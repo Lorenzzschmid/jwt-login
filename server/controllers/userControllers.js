@@ -83,4 +83,24 @@ export const findAllUsers = async (req, res) => {
     }).json({message: 'Logged out successful'});
  }; 
 
+ export const updateUsername = async (req, res) => {
+    try {
+        const { userName } = req.body;
+
+        const updatedUsername = await User.findByIdAndUpdate(
+            req.params.id,
+            { userName },
+            { new: true }
+        );
+        // could add a 404 if the username is not found
+        // if (!updatedUsername) {
+        // return res.status(404).json({message: 'Couldn't find user'});
+        //}
+
+        return res.status(200).json({ message: 'Username updated successfully', updatedUsername }); 
+    } catch (error) {
+        return res.status(400).json({message: error.message});
+    }
+ }; 
+
  
