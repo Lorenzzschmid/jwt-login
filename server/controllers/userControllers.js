@@ -40,5 +40,37 @@ export const findAllUsers = async (req, res) => {
  export const loginUser = async (req, res) => {
     const { email, password} = req.body; 
 
-    
- }
+    try {
+        if (!password) {
+            return res.status(400).json({message: 'Enter a valid password.'}); 
+        }
+
+        const user = await User.findOne({email}); 
+
+        if (!user) {
+            return res
+            .status(400)
+            .json({message: 'Enter a valid email address.'});
+        }
+
+        const checkPassword = await bcrypt.compare(password, user.password); 
+
+        if (checkPassword) {
+            console.log('Login successful ✅️');
+            const token = await generateToken(user);
+
+            return res
+            .status(200)
+            .cookie('jwt', token, {
+                httpOnly: true,
+                secure: false, // because no use of https
+                sameSite: false
+            })
+            .json({message: "You're logged in. Welcome!"});
+        } else {
+            return res.status(400).json({ message: 'No access granted' });
+        }
+    } catch (error) {
+        return res.status(400).json({message: error.message });
+    }
+ };
