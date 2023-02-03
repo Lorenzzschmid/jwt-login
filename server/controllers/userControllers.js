@@ -74,3 +74,13 @@ export const findAllUsers = async (req, res) => {
         return res.status(400).json({message: error.message });
     }
  };
+
+ export const logout = (req, res) => {
+    res.clearCookie('jwt', {
+        httpOnly: true,
+        secure: false, 
+        sameSite: false, 
+    }).json({message: 'Logged out successful'});
+ }; 
+
+ 
