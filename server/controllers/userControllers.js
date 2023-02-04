@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt'; 
 import User from '../models/userModel.js'; 
+import generateToken from '../helpers/authenticationHelper.js'
 
 
 export const findAllUsers = async (req, res) => {
