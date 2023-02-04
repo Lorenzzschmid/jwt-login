@@ -21,3 +21,11 @@ router.post('/create', validateUser, sanitizeUser, registerUser);
 
 router.post('/login', loginUser); 
 
+router.get('/logout', logout); 
+
+router.patch('/update/:id', updateUsername); 
+
+router.delete('/delete/:id', deleteUser); 
+
+export default router; 
+
