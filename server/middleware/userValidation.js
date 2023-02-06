@@ -23,4 +23,33 @@ export const validateUser = [
 
         next();
     },
-]
+    body('email')
+        .exists()
+        .trim()
+        .isEmail()
+        .withMessage('Enter a valid email address.'),
+    function (req, res, next) {
+        const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res
+        .status(400)
+        .json({ message: "Validation errors email", error: errors.msg });
+    }
+
+    next();
+  },
+];
+
+export const sanitizeUser = [
+  body("email").normalizeEmail(),
+  (req, res, next) => {
+    // let { firstName, lastName } = req.body;
+    // firstName = capitalizeFirstLetter(firstName);
+    // lastName = capitalizeFirstLetter(lastName);
+
+    req.body.firstName = capitalizeFirstLetter(req.body.firstName);
+    req.body.lastName = capitalizeFirstLetter(req.body.lastName);
+    next();
+  },
+];
+
