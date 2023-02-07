@@ -1,9 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'; 
-import { containerLandingPage } from '../styled-components/Container'
+// import { containerLandingPage } from '../styled-components/Container'; 
+
+//Styled-components
 
 export default function LandingPage() {
   return (
-    <div>LandingPage</div>
+    <div>
+        {/* <ContainerLandingPage>
+
+        </ContainerLandingPage> */}
+    </div>
   )
 }
